@@ -831,7 +831,7 @@ static struct ref_iterator *files_ref_iterator_begin(
 	 */
 
 	loose_iter = cache_ref_iterator_begin(get_loose_ref_cache(refs),
-					      prefix, 1);
+					      prefix, repo, 1);
 
 	/*
 	 * The packed-refs file might contain broken references, for
@@ -1164,7 +1164,8 @@ static int files_pack_refs(struct ref_store *ref_store, unsigned int flags)
 
 	packed_refs_lock(refs->packed_ref_store, LOCK_DIE_ON_ERROR, &err);
 
-	iter = cache_ref_iterator_begin(get_loose_ref_cache(refs), NULL, 0);
+	iter = cache_ref_iterator_begin(get_loose_ref_cache(refs), NULL,
+					the_repository, 0);
 	while ((ok = ref_iterator_advance(iter)) == ITER_OK) {
 		/*
 		 * If the loose reference can be packed, add an entry
