@@ -9,8 +9,8 @@ color.advice.hint::
 	Use customized color for hints.
 
 color.blame.highlightRecent::
-	This can be used to color the metadata of a blame line depending
-	on age of the line.
+	Used to color line annotations differently depending on the age of the commit
+	(`git blame --color-by-age`).
 +
 This setting should be set to a comma-separated list of color and date settings,
 starting and ending with a color, the dates should be set from oldest to newest.
@@ -26,9 +26,8 @@ one year old are kept white, and lines introduced within the last month are
 colored red.
 
 color.blame.repeatedLines::
-	Use the customized color for the part of git-blame output that
-	is repeated meta information per line (such as commit id,
-	author name, date and timezone). Defaults to cyan.
+	Use this color to colorize line annotations, if they belong to the same commit
+	as the preceding line (`git blame --color-lines`). Defaults to cyan.
 
 color.branch::
 	A boolean to enable/disable color in the output of
