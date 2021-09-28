@@ -913,7 +913,7 @@ static struct ref_iterator_vtable packed_ref_iterator_vtable = {
 
 static struct ref_iterator *packed_ref_iterator_begin(
 		struct ref_store *ref_store,
-		const char *prefix, unsigned int flags)
+		const char *prefix, struct repository *repo, unsigned int flags)
 {
 	struct packed_ref_store *refs;
 	struct snapshot *snapshot;
@@ -1135,8 +1135,14 @@ static int write_with_updates(struct packed_ref_store *refs,
 	 * of the lists each time through the loop. When the current
 	 * list of refs is exhausted, set iter to NULL. When the list
 	 * of updates is exhausted, leave i set to updates->nr.
+	 *
+	 * Note that the repository does not matter since
+	 * DO_FOR_EACH_INCLUDE_BROKEN means that we do not access any objects,
+	 * but the_repository here makes the most sense because we only support
+	 * writing refs to the main repository.
 	 */
 	iter = packed_ref_iterator_begin(&refs->base, "",
+					 the_repository,
 					 DO_FOR_EACH_INCLUDE_BROKEN);
 	if ((ok = ref_iterator_advance(iter)) != ITER_OK)
 		iter = NULL;
