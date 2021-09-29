@@ -1187,6 +1187,7 @@ int grep_next_match(struct grep_opt *opt,
 				if ((field != GREP_HEADER_FIELD_MAX) &&
 				    (p->field != field))
 					continue;
+				/* fall thru */
 			case GREP_PATTERN: /* atom */
 			case GREP_PATTERN_BODY:
 				hit |= match_next_pattern(p, bol, eol, ctx,
