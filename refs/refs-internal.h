@@ -66,6 +66,7 @@ int refname_is_safe(const char *refname);
  * referred-to object does not exist, emit a warning and return false.
  */
 int ref_resolves_to_object(const char *refname,
+			   struct repository *repo,
 			   const struct object_id *oid,
 			   unsigned int flags);
 
@@ -382,6 +383,7 @@ int is_empty_ref_iterator(struct ref_iterator *ref_iterator);
 struct ref_iterator *refs_ref_iterator_begin(
 		struct ref_store *refs,
 		const char *prefix, int trim,
+		struct repository *repo,
 		enum do_for_each_ref_flags flags);
 
 /*
@@ -583,7 +585,7 @@ typedef int copy_ref_fn(struct ref_store *ref_store,
  */
 typedef struct ref_iterator *ref_iterator_begin_fn(
 		struct ref_store *ref_store,
-		const char *prefix, unsigned int flags);
+		const char *prefix, struct repository *repo, unsigned int flags);
 
 /* reflog functions */
 
